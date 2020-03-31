@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1585420116040.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "45FAEFC",
+    "lastKnownWriteTime" : 217020518463700996,
+    "last_content_update" : 1585420116040,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "1B8CEAB",
+        "caption" : "title",
+        "contentUrl" : "grid_resource/gridviewer.html?env=_rs_no_env&obj=&cache_key=1B8CEAB",
+        "displayedObservations" : "58",
+        "environment" : "_rs_no_env",
+        "expression" : "structure(list(Date = structure(c(18338, 18339, 18340, 18341,  18342, 18343, 18344, 18345, 18346, 18347, 18348, 18349, 18350,  18351, 18338, 18339, 18340, 18341, 18342, 18343, 18344, 18345,  18346, 18347, 18348, 18349, 18350, 18351, 18352, 18353, 18354,  18355, 18356, 18357, 18358, 18359, 18338, 18339, 18340, 18341,  18342, 18343, 18344, 18345, 18346, 18347, 18348, 18349, 18350,  18351, 18352, 18353, 18354, 18355, 18356, 18357, 18358, 18359 ), class = \"Date\"), Confirmed = c(6421, 7783, 13677, 19100, 25489,  33272, 43847, 53740, 65778, 83836, 101657, 121478, 140886, 161807,  7093, 9434, 12548, 16688, 22195, 29520, 39262, 52218, 69450,  92368, 122850, 163390, 217309, 289021, 384398, 511249, 679961,  904349, 1202784, 1599702, 2127604, 2829713, 4924, 6401, 8322,  10818, 14064, 18283, 23768, 30898, 40167, 52217, 67883, 88247,  114722, 149138, 193880, 252044, 327657, 425954, 553740, 719862,  935820, 1216566), Type = c(\"Confirmed\", \"Confirmed\", \"Confirmed\",  \"Confirmed\", \"Confirmed\", \"Confirmed\", \"Confirmed\", \"Confirmed\",  \"Confirmed\", \"Confirmed\", \"Confirmed\", \"Confirmed\", \"Confirmed\",  \"Confirmed\", \"Estimate 1.33\", \"Estimate 1.33\", \"Estimate 1.33\",  \"Estimate 1.33\", \"Estimate 1.33\", \"Estimate 1.33\", \"Estimate 1.33\",  \"Estimate 1.33\", \"Estimate 1.33\", \"Estimate 1.33\", \"Estimate 1.33\",  \"Estimate 1.33\", \"Estimate 1.33\", \"Estimate 1.33\", \"Estimate 1.33\",  \"Estimate 1.33\", \"Estimate 1.33\", \"Estimate 1.33\", \"Estimate 1.33\",  \"Estimate 1.33\", \"Estimate 1.33\", \"Estimate 1.33\", \"Estimate 1.30\",  \"Estimate 1.30\", \"Estimate 1.30\", \"Estimate 1.30\", \"Estimate 1.30\",  \"Estimate 1.30\", \"Estimate 1.30\", \"Estimate 1.30\", \"Estimate 1.30\",  \"Estimate 1.30\", \"Estimate 1.30\", \"Estimate 1.30\", \"Estimate 1.30\",  \"Estimate 1.30\", \"Estimate 1.30\", \"Estimate 1.30\", \"Estimate 1.30\",  \"Estimate 1.30\", \"Estimate 1.30\", \"Estimate 1.30\", \"Estimate 1.30\",  \"Estimate 1.30\")), row.names = c(NA, -58L), spec = structure(list(     cols = list(Date = structure(list(format = \"\"), class = c(\"collector_date\",      \"collector\")), Confirmed = structure(list(), class = c(\"collector_number\",      \"collector\")), Type = structure(list(), class = c(\"collector_character\",      \"collector\")), \"1.33\" = structure(list(), class = c(\"collector_double\",      \"collector\"))), default = structure(list(), class = c(\"collector_guess\",      \"collector\")), skip = 1), class = \"col_spec\"), class = c(\"spec_tbl_df\",  \"tbl_df\", \"tbl\", \"data.frame\"))",
+        "object" : "",
+        "preview" : "0",
+        "totalObservations" : "58",
+        "variables" : "3"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
