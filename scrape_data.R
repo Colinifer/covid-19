@@ -21,11 +21,18 @@ US_confirmed <- confirmed %>% filter(`Country/Region` == "US")
 today <- Sys.Date()
 today <- format(Sys.Date(), format("%m/%d/%y"))
 
-x.colnames <- seq(as.Date("3/1/20", format("%m/%d/%Y")), today, by = 1)
+## x.colnames <- seq(as.Date("3/1/20", format = "%m/%d/%Y"), today, by = 1)
 
-sum(US_confirmed$`3/30/20`) ## today's date
+sum(US_confirmed$`4/5/20`) ## today's date
 
-US_data <- read_csv(file = "cases.csv") ## from google sheet
+f.US_data <- "cases.csv"
+US_data <- read_csv(file = f.US_data) ## from google sheet
+
+if (US_data$Date[1] == "3/1/2020") {
+  US_data$Date <- as.Date(US_data$Date, format = "%m/%d/%y")
+  write.csv(US_data, file = f.US_data, row.names = FALSE)
+}
+
 US_data[,4] <- NULL
 view(US_data)
 US_data_rev <- US_data %>% filter(Date >= Sys.Date()-14 & Date <= Sys.Date()+7)
@@ -39,7 +46,7 @@ g1 <- US_data_rev %>% ggplot(
   aes(x = Date, y = Confirmed, color = Type)) +
   geom_point(aes(group = seq_along(Date))) + ## include line on chart
   geom_line(size = 1.5) + ## line width
-  ylim(0, 250000) + ## y axis limit
+  ylim(0, 500000) + ## y axis limit
   xlim(Sys.Date()-14, Sys.Date()+5) + ## x axis limit
   labs(title = "Confirmed vs Estimate 33% inc/day U.S. COVID-19 cases",
      caption = "Source: github.com/CSSEGISandData",
