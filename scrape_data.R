@@ -35,8 +35,11 @@ US_confirmed <- confirmed %>% filter(`Country/Region` == "US")
 # US_data_rev <- US_data %>% filter(Date >= Sys.Date()-14 & Date <= Sys.Date()+7)
 # view(US_data_rev)
 
-cdc_weekly_deaths <-
+cdc_weekly_deaths_201418 <-
   read_csv("https://data.cdc.gov/resource/3yf8-kanr.csv")
+
+cdc_weekly_deaths_201920 <-
+  read_csv("https://data.cdc.gov/resource/muzy-jte6.csv")
 
 covid_tracking <- "https://covidtracking.com/api/v1/"
 
