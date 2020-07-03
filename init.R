@@ -1,12 +1,18 @@
 # Packages & Init Setup ---------------------------------------------------
 
-pkgs <- c("tidyverse", "ggplot2", "ggfortify", "gganimate", "magick")
+pkgs <- c("tidyverse", "ggplot2", "ggfortify", "gganimate", "magick", "RSocrata")
 installed_packages <- pkgs %in%
   rownames(installed.packages())
 if (any(installed_packages == FALSE)) {
   install.packages(pkgs[!installed_packages])
 }
 invisible(lapply(pkgs, library, character.only = TRUE))
+
+# CDC/Socrata API setup ---------------------------------------------------
+
+app_token <- "kKUiVCQTC0UGduZxOSGGEhZhU"
+secret_token <- "njWMqH5O2wxClDZLxsMzaP1fbOvaOl0ppFyN"
+
 
 # Get Data ----------------------------------------------------------------
 
@@ -34,12 +40,14 @@ US_confirmed <- confirmed %>% filter(`Country/Region` == "US")
 # view(US_data)
 # US_data_rev <- US_data %>% filter(Date >= Sys.Date()-14 & Date <= Sys.Date()+7)
 # view(US_data_rev)
+states_lockdown <- 
+  read_csv("state lockdowns.csv")
 
 cdc_weekly_deaths_201418 <-
-  read_csv("https://data.cdc.gov/resource/3yf8-kanr.csv")
+  read.socrata("https://data.cdc.gov/resource/3yf8-kanr.csv", app_token = app_token)
 
 cdc_weekly_deaths_201920 <-
-  read_csv("https://data.cdc.gov/resource/muzy-jte6.csv")
+  read.socrata("https://data.cdc.gov/resource/muzy-jte6.csv", app_token = app_token)
 
 covid_tracking <- "https://covidtracking.com/api/v1/"
 
@@ -48,6 +56,14 @@ us_daily <-
 
 states_daily <-
   read_csv(paste0(covid_tracking,"states/daily.csv"))
+
+# Clean data --------------------------------------------------------------
+
+cdc_recent_deaths <-
+  cdc_weekly_deaths_201920 %>% filter(mmwryear == 2020, mmwrweek == 25)
+
+cdc_recent_deaths <-
+  cdc_weekly_deaths_201920 %>% filter(`MMWR Year` == 2020, `MMWR Week` == 25)
 
 # Chart -------------------------------------------------------------------
 
