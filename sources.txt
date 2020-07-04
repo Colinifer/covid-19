@@ -1,0 +1,8 @@
+Scorata documentation available here:
+https://dev.socrata.com/foundry/data.cdc.gov/muzy-jte6
+
+RSocrata available here:
+https://github.com/Chicago/RSocrata
+
+Mask policies:
+https://www.cnet.com/health/where-are-face-masks-required/
