@@ -1,6 +1,21 @@
-# Packages & Init Setup ---------------------------------------------------
+# Packages & Initialize Setup ---------------------------------------------
 
-pkgs <- c("tidyverse", "ggplot2", "ggfortify", "gganimate", "magick", "RSocrata")
+pkgs <-
+  c("tidyverse",
+    "ggplot2",
+    "ggfortify",
+    "ggmap", # mapping
+    "gganimate",
+    "magick",
+    "RSocrata",
+    "reactable",
+    "zoo", # moving averages
+    "hrbrthemes", # themes for graphs
+    "socviz", # %nin%
+    "geofacet", # maps
+    "usmap" # lat and long
+    )
+
 installed_packages <- pkgs %in%
   rownames(installed.packages())
 if (any(installed_packages == FALSE)) {
@@ -19,29 +34,20 @@ secret_token <- "njWMqH5O2wxClDZLxsMzaP1fbOvaOl0ppFyN"
 today <- Sys.Date()
 today <- format(Sys.Date(), format("%m/%d/%y"))
 
-confirmed <-
+states_lockdown <- 
+  read_csv("state lockdowns.csv")
+
+CSSEGIS_confirmed <-
   read_csv(
     "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
   )
-US_confirmed <- confirmed %>% filter(`Country/Region` == "US")
+US_confirmed <- CSSEGISandData %>% filter(`Country/Region` == "US")
 
-## x.colnames <- seq(as.Date("3/1/20", format = "%m/%d/%Y"), today, by = 1)
-# sum(US_confirmed$`4/5/20`) ## today's date
-# 
-# f.US_data <- "cases.csv"
-# US_data <- read_csv(file = f.US_data) ## from google sheet
-# 
-# if (US_data$Date[1] == "3/1/2020") {
-#   US_data$Date <- as.Date(US_data$Date, format = "%m/%d/%y")
-#   write.csv(US_data, file = f.US_data, row.names = FALSE)
-# }
-# 
-# US_data[,4] <- NULL
-# view(US_data)
-# US_data_rev <- US_data %>% filter(Date >= Sys.Date()-14 & Date <= Sys.Date()+7)
-# view(US_data_rev)
-states_lockdown <- 
-  read_csv("state lockdowns.csv")
+CSSEGIS_deaths <-
+  read_csv(
+    "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
+  )
+US_deaths <- CSSEGISandData %>% filter(`Country/Region` == "US")
 
 cdc_weekly_deaths_201418 <-
   read.socrata("https://data.cdc.gov/resource/3yf8-kanr.csv", app_token = app_token)
@@ -64,6 +70,24 @@ cdc_recent_deaths <-
 
 cdc_recent_deaths <-
   cdc_weekly_deaths_201920 %>% filter(`MMWR Year` == 2020, `MMWR Week` == 25)
+
+# Old code ----------------------------------------------------------------
+
+## x.colnames <- seq(as.Date("3/1/20", format = "%m/%d/%Y"), today, by = 1)
+# sum(US_confirmed$`4/5/20`) ## today's date
+# 
+# f.US_data <- "cases.csv"
+# US_data <- read_csv(file = f.US_data) ## from google sheet
+# 
+# if (US_data$Date[1] == "3/1/2020") {
+#   US_data$Date <- as.Date(US_data$Date, format = "%m/%d/%y")
+#   write.csv(US_data, file = f.US_data, row.names = FALSE)
+# }
+# 
+# US_data[,4] <- NULL
+# view(US_data)
+# US_data_rev <- US_data %>% filter(Date >= Sys.Date()-14 & Date <= Sys.Date()+7)
+# view(US_data_rev)
 
 # Chart -------------------------------------------------------------------
 
