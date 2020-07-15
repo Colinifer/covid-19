@@ -1,9 +1,9 @@
 {
-    "path" : "~/Documents/dev/GitHub/covid-19",
-    "sortOrder" : [
+    "path": "~/Documents/dev/GitHub/covid-19",
+    "sortOrder": [
         {
-            "ascending" : true,
-            "columnIndex" : 2
+            "columnIndex": 2,
+            "ascending": true
         }
     ]
 }

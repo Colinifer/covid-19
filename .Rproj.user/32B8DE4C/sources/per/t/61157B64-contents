@@ -1,7 +1,0 @@
-pkgs <- installed.packages()
-pkgs <- pkgs[,1]
-installed_packages <- pkgs %in%
-  rownames(installed.packages())
-if (any(installed_packages == TRUE)) {
-  remove.packages(pkgs[!installed_packages])
-}
