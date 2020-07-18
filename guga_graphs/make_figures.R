@@ -5,8 +5,9 @@ source("/guga_graphs/clean_data.R")
 subDir <- "/guga_graphs/figures"
 dir.create(file.path(getwd(), subDir), showWarnings = FALSE)
 
-#argument is how many days to keep after 10th death
-all <- get_data(65) 
+# argument is how many days to keep after 10th death
+# subtracting max and min dates to get automatic updates
+all <- get_data(as.integer(max(d1$date) - min(d1$date))) 
 
 #keep the top X states/counties/countries with most deaths to show in plot. and also south korea for the country one
 u <- all %>% filter(type == 'us') %>%

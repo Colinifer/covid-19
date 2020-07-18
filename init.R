@@ -2,6 +2,7 @@
 
 pkgs <-
   c("tidyverse",
+    "devtools",
     "ggplot2",
     "ggfortify",
     "ggmap", # mapping
@@ -51,6 +52,8 @@ US_deaths <- CSSEGISandData %>% filter(`Country/Region` == "US")
 
 cdc_weekly_deaths_201418 <-
   read.socrata("https://data.cdc.gov/resource/3yf8-kanr.csv", app_token = app_token)
+
+write_ %>% 
 
 cdc_weekly_deaths_201920 <-
   read.socrata("https://data.cdc.gov/resource/muzy-jte6.csv", app_token = app_token)
