@@ -1,4 +1,5 @@
 # Packages & Initialize Setup ---------------------------------------------
+proj_name <- "covid19"
 
 pkgs <-
   c("tidyverse",
@@ -9,6 +10,8 @@ pkgs <-
     "gganimate",
     "magick",
     "RSocrata",
+    "jsonlite",
+    "sf",
     "reactable",
     "zoo", # moving averages
     "hrbrthemes", # themes for graphs
@@ -24,40 +27,48 @@ if (any(installed_packages == FALSE)) {
 }
 invisible(lapply(pkgs, library, character.only = TRUE))
 
-# CDC/Socrata API setup ---------------------------------------------------
 
-app_token <- "kKUiVCQTC0UGduZxOSGGEhZhU"
-secret_token <- "njWMqH5O2wxClDZLxsMzaP1fbOvaOl0ppFyN"
+# DB and various API keys ---------------------------------------------------
 
+source("../../InitR/con.R")
+cdc_app_token <- "kKUiVCQTC0UGduZxOSGGEhZhU"
+cdc_secret_token <- "njWMqH5O2wxClDZLxsMzaP1fbOvaOl0ppFyN"
 
 # Get Data ----------------------------------------------------------------
 
+# Local
 today <- Sys.Date()
-today <- format(Sys.Date(), format("%m/%d/%y"))
+today <- format(Sys.Date(),
+                format("%m/%d/%y"))
 
-states_lockdown <- 
+states_lockdown <-
   read_csv("state lockdowns.csv")
 
+# CSSEGIS
 CSSEGIS_confirmed <-
   read_csv(
     "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
   )
-US_confirmed <- CSSEGISandData %>% filter(`Country/Region` == "US")
+US_confirmed <- CSSEGISandData %>%
+  filter(`Country/Region` == "US")
 
 CSSEGIS_deaths <-
   read_csv(
     "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
   )
-US_deaths <- CSSEGISandData %>% filter(`Country/Region` == "US")
+US_deaths <- CSSEGISandData %>% 
+  filter(`Country/Region` == "US")
 
+# CDC
 cdc_weekly_deaths_201418 <-
-  read.socrata("https://data.cdc.gov/resource/3yf8-kanr.csv", app_token = app_token)
+  read.socrata("https://data.cdc.gov/resource/3yf8-kanr.csv", app_token = cdc_app_token)
 
 write_ %>% 
 
 cdc_weekly_deaths_201920 <-
-  read.socrata("https://data.cdc.gov/resource/muzy-jte6.csv", app_token = app_token)
+  read.socrata("https://data.cdc.gov/resource/muzy-jte6.csv", app_token = cdc_app_token)
 
+# Covid Tracking Project
 covid_tracking <- "https://covidtracking.com/api/v1/"
 
 us_daily <-
@@ -65,6 +76,60 @@ us_daily <-
 
 states_daily <-
   read_csv(paste0(covid_tracking,"states/daily.csv"))
+
+# Philly Open Data
+phl_carto <- "https://phl.carto.com/api/v2/sql?q="
+# phl_categories <- c("cases", "deaths", "hospitalizations")
+# phl_subcategories <- c("date", "zip", "age", "sex", "race", "outcome")
+# phl_endpoints <-
+#   data.frame(matrix(
+#     ncol = length(phl_categories),
+#     nrow = length(phl_subcategories)
+#   ))
+# colnames(phl_endpoints) <- phl_categories
+# rownames(phl_endpoints) <- phl_subcategories
+# 
+# fx.phl_endpoints <- function(x, y) {
+#   phl_endpoints[x, y] <- paste("covid", x, "by", y, sep = "_")
+# }
+# 
+# phl_endpoints <- mapply(fx.phl_endpoints, phl_categories, phl_subcategories, SIMPLIFY = FALSE)
+
+phl_endpoints <- c("covid_cases_by_outcome",
+                   "covid_cases_by_date",
+                   "covid_cases_by_zip",
+                   "covid_cases_by_age",
+                   "covid_cases_by_sex",
+                   "covid_cases_by_race",
+                   "covid_hospitalizations_by_date",
+                   "covid_hospitalizations_by_zip",
+                   "covid_hospitalizations_by_age",
+                   "covid_hospitalizations_by_sex",
+                   "covid_hospitalizations_by_race",
+                   "covid_deaths_by_date",
+                   "covid_deaths_by_zip",
+                   "covid_deaths_by_age",
+                   "covid_deaths_by_race")
+
+
+fx.phl_endpoints <- function(x) {
+  phl_query <- paste(phl_carto, "SELECT", "*", "FROM", x, sep = "%20")
+  query_rds <- paste0("data/","phl_", x, ".rds")
+  df <- 
+    phl_query %>%
+      url() %>%
+      fromJSON(
+        simplifyVector = TRUE,
+        simplifyDataFrame = TRUE,
+        simplifyMatrix = TRUE,
+        flatten = TRUE
+      )
+  df <- df$rows
+  saveRDS(df, query_rds)
+}
+
+lapply(phl_endpoints, fx.phl_endpoints)
+
 
 # Clean data --------------------------------------------------------------
 
@@ -132,7 +197,3 @@ g1 <- US_confirmed %>% ggplot(
                      values = c("Confirmed"="#00ba38", "Estimate (30% increase/day)"="#f8766d")) +  # line color
   theme(axis.text.x = element_text(angle = 90, vjust=0.5, size = 8),  # rotate x axis text
         panel.grid.minor = element_blank())  # turn off minor grid
-
-library(ggplot2)
-library(ggfortify)
-theme_set(theme_bw())
