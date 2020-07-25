@@ -1,5 +1,5 @@
 # Packages & Initialize Setup ---------------------------------------------
-proj_name <- "covid19"
+proj_name <- "covid-19"
 
 pkgs <-
   c("tidyverse",
@@ -27,10 +27,14 @@ if (any(installed_packages == FALSE)) {
 }
 invisible(lapply(pkgs, library, character.only = TRUE))
 
+source("../initR/init.R")
+fx.setdir(proj_name)
 
 # DB and various API keys ---------------------------------------------------
 
+proj_name <- "covid19"
 source("../../InitR/con.R")
+dbListTables(con)
 cdc_app_token <- "kKUiVCQTC0UGduZxOSGGEhZhU"
 cdc_secret_token <- "njWMqH5O2wxClDZLxsMzaP1fbOvaOl0ppFyN"
 
