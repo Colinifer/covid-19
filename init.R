@@ -55,6 +55,8 @@ CSSEGIS_confirmed <-
   )
 US_confirmed <- CSSEGISandData %>%
   filter(`Country/Region` == "US")
+CSSEGIS_confirmed %>% saveRDS("data/CSSEGIS_confirmed.rds")
+
 
 CSSEGIS_deaths <-
   read_csv(
@@ -62,24 +64,27 @@ CSSEGIS_deaths <-
   )
 US_deaths <- CSSEGISandData %>% 
   filter(`Country/Region` == "US")
+CSSEGIS_deaths %>% saveRDS("data/CSSEGIS_deaths.rds")
 
 # CDC
 cdc_weekly_deaths_201418 <-
   read.socrata("https://data.cdc.gov/resource/3yf8-kanr.csv", app_token = cdc_app_token)
-
-write_ %>% 
+cdc_weekly_deaths_201418 %>% saveRDS("data/cdc_weekly_deaths_201418.rds") 
 
 cdc_weekly_deaths_201920 <-
   read.socrata("https://data.cdc.gov/resource/muzy-jte6.csv", app_token = cdc_app_token)
+cdc_weekly_deaths_201920%>% saveRDS("data/cdc_weekly_deaths_201920.rds") 
 
 # Covid Tracking Project
 covid_tracking <- "https://covidtracking.com/api/v1/"
 
 us_daily <-
   read_csv(paste0(covid_tracking,"us/daily.csv"))
+us_daily %>% saveRDS("data/us_daily.rds") 
 
 states_daily <-
   read_csv(paste0(covid_tracking,"states/daily.csv"))
+states_daily %>% saveRDS("data/states_daily.rds")
 
 # Philly Open Data
 phl_carto <- "https://phl.carto.com/api/v2/sql?q="
