@@ -1,6 +1,6 @@
 State,State Abbrev,Population,lockdown start,lockdown end,mask order start,mask order end
-Alabama,AL,"4,903,185",4/4/20,4/30/20,4/30/20,
-Alaska,AK,"731,545",3/11/20,4/21/20,,
+Alabama,AL,"4,903,185",4/4/20,4/30/20,4/30/20,https://www.aarp.org/health/healthy-living/info-2020/states-mask-mandates-coronavirus.html
+Alaska,AK,"731,545",3/11/20,4/21/20,NULL,
 Arizona,AZ,"113,990",3/30/20,5/15/20,,
 Arkansas,AR,"53,179",NULL,NULL,,
 California,CA,"39,512,223",3/19/20,NULL,6/18/20,
